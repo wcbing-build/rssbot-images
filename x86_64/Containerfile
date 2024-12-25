@@ -1,0 +1,11 @@
+FROM alpine:latest
+
+RUN echo -e "#!/bin/sh \n/rssbot \$TOKEN -d /mnt/rssbot.json \$@" \
+    | tee /entrypoint.sh && chmod +x /entrypoint.sh
+
+RUN wget -O /rssbot \
+    https://github.com/iovxw/rssbot/releases/latest/download/rssbot-zh-x86_64-unknown-linux-musl \
+    && chmod +x /rssbot
+
+ENTRYPOINT ["/entrypoint.sh"]
+
